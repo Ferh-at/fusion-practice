@@ -1,0 +1,4 @@
+std = "roblox"
+
+[lints]
+# Keep defaults; tweak as the practice project grows

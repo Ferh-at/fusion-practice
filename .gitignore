@@ -1,0 +1,29 @@
+# Wally
+Packages/
+ServerPackages/
+DevPackages/
+wally.error.log
+
+# Sourcemap / LSP
+sourcemap.json
+
+# Rojo
+*.rbxl
+*.rbxlx
+*.rbxm
+*.rbxmx
+
+# OS / editor
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+.vscode/*.log
+
+# Toolchain local binaries (Rokit manages these globally/per-user)
+# Keep rokit.toml / aftman.toml tracked
+
+# Misc
+*.log
+.env
+.env.*

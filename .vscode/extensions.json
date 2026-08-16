@@ -1,0 +1,11 @@
+{
+  "recommendations": [
+    "JohnnyMorganz.luau-lsp",
+    "Kampfkarren.selene-vscode",
+    "JohnnyMorganz.stylua"
+  ],
+  "unwantedRecommendations": [
+    "GitHub.copilot",
+    "GitHub.copilot-chat"
+  ]
+}

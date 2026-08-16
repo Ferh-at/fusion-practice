@@ -1,0 +1,64 @@
+{
+  // --- Luau Language Server (keep IntelliSense / hover / diagnostics ON) ---
+  "luau-lsp.sourcemap.enabled": true,
+  "luau-lsp.sourcemap.autogenerate": true,
+  "luau-lsp.sourcemap.rojoProjectFile": "default.project.json",
+  "luau-lsp.sourcemap.includeNonScripts": true,
+  "luau-lsp.fflags.enableByDefault": true,
+  "luau-lsp.completion.enabled": true,
+  "luau-lsp.hover.enabled": true,
+  "luau-lsp.diagnostics.strictDatamodel": true,
+  "luau-lsp.platform.type": "roblox",
+  "luau-lsp.require.mode": "relativeToFile",
+  "files.associations": {
+    "*.luau": "luau",
+    "*.lua": "lua"
+  },
+  "luau-lsp.studioPlugin.enabled": true,
+  "luau-lsp.studioPlugin.port": 3667,
+  // --- StyLua (formatter) ---
+  "editor.formatOnSave": true,
+  "[luau]": {
+    "editor.defaultFormatter": "JohnnyMorganz.stylua",
+    "editor.formatOnSave": true
+  },
+  "[lua]": {
+    "editor.defaultFormatter": "JohnnyMorganz.stylua",
+    "editor.formatOnSave": true
+  },
+  "stylua.targetLanguageIds": [
+    "lua",
+    "luau"
+  ],
+  // --- Selene (linter via extension; also available as CLI via Rokit) ---
+  "selene.selenePath": "selene",
+  // --- Option A: disable AI autocomplete / inline suggestions, keep LSP ---
+  "editor.inlineSuggest.enabled": false,
+  "editor.suggest.showStatusBar": true,
+  "cursor.cpp.enablePartialAccepts": false,
+  "cursor.cpp.disabledLanguages": [
+    "lua",
+    "luau",
+    "plaintext",
+    "markdown",
+    "json",
+    "jsonc",
+    "toml",
+    "yaml",
+    "xml",
+    "html",
+    "css",
+    "javascript",
+    "typescript",
+    "python",
+    "shellscript",
+    "powershell"
+  ],
+  "github.copilot.enable": {
+    "*": false,
+    "lua": false,
+    "luau": false
+  },
+  "github.copilot.editor.enableAutoCompletions": false,
+  "github.copilot.editor.enableCodeActions": false
+}
