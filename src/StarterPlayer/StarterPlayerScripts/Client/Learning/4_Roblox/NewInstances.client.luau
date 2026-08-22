@@ -1,4 +1,3 @@
---!nolint
 --[[
 ╔════════════════════════════════════════════════════════════╗
 ║                                                            ║
@@ -9,37 +8,37 @@
 ║   ██║     ███████╗██║  ██║██║  ██║██║  ██║   ██║           ║
 ║   ╚═╝     ╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝   ╚═╝           ║
 ║                                                            ║
-║   Last updated: 15/08/2026                                 ║
+║   Last updated: 17/08/2026                                 ║
 ╚════════════════════════════════════════════════════════════╝
 ]]
 
 -- Imports
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
-local StarterGui = game:GetService("StarterGui")
 local Fusion = require(ReplicatedStorage.Packages.Fusion)
 local scoped = Fusion.scoped
 local peek = Fusion.peek
---* Process of connecting scripts to pre-made UI is known as Hydration.
-
 
 -- Functionality
+local plr = game["Players"].LocalPlayer
+local PlayerGui = plr.PlayerGui
 
-local myScope = scoped(Fusion)
+local scope = scoped(Fusion)
 
-local instance = game.Players.LocalPlayer.PlayerGui:WaitForChild("ScreenGui")
-local ShowUI = myScope:Value(true)
+local Message = scope:Value("Hello!")
+local State = scope:Value(true)
 
--- hydration --> first pass in instance, then pass in ur property table
-local UI = myScope:Hydrate(instance){
-    Enabled = ShowUI
+local UI = scope:New("TextLabel") {
+    Name = "Greeting Text Label",
+    Parent = PlayerGui:WaitForChild("ScreenGui"),
+    Text = Message,
+    Position = UDim2.fromScale(0.5, 0.5),
+    Size = UDim2.fromScale(0.1, .1),
+    Visible = State
 }
 
-
-print(UI.ClassName)
-print(UI.Parent)
-
-print("Turning off UI, wait 5 seconds")
-ShowUI:set(false)
 task.wait(5)
-ShowUI:set(true)
-print("Back on")
+print("Turning off....")
+State:set(false)
+task.wait(3)
+print("turnign back on...")
+State:set(true)
