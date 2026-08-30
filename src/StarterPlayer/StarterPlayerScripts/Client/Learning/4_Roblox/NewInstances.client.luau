@@ -27,14 +27,14 @@ local scope = scoped(Fusion)
 local Message = scope:Value("Hello!")
 local State = scope:Value(true)
 
-local UI = scope:New("TextLabel") {
-    Name = "Greeting Text Label",
-    Parent = PlayerGui:WaitForChild("ScreenGui"),
-    Text = Message,
-    Position = UDim2.fromScale(0.5, 0.5),
-    Size = UDim2.fromScale(0.1, .1),
-    Visible = State
-}
+local UI = scope:New("TextLabel")({
+	Name = "Greeting Text Label",
+	Parent = PlayerGui:WaitForChild("ScreenGui"),
+	Text = Message,
+	Position = UDim2.fromScale(0.5, 0.5),
+	Size = UDim2.fromScale(0.1, 0.1),
+	Visible = State,
+})
 
 task.wait(5)
 print("Turning off....")

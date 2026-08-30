@@ -1,4 +1,3 @@
---!nolint LocalShadow
 --[[
 ╔════════════════════════════════════════════════════════════╗
 ║                                                            ║
@@ -9,61 +8,48 @@
 ║   ██║     ███████╗██║  ██║██║  ██║██║  ██║   ██║           ║
 ║   ╚═╝     ╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝   ╚═╝           ║
 ║                                                            ║
-║   Last updated: 11/08/2026                                 ║
+║   Last updated: 27/08/2026                                 ║
 ╚════════════════════════════════════════════════════════════╝
 ]]
 
 -- Imports
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local Fusion = require(ReplicatedStorage.Packages.Fusion)
+
 local scoped = Fusion.scoped
 local peek = Fusion.peek
 
+local Out = Fusion.Out
+
 -- Functionality
 
---* ForKeys objects support both state objects (scope:Value()) + constants ({1,2,3,4,5})
+--! The "Out" keys let you output a property's value to a Value object.
 
 local scope = scoped(Fusion)
 
-local data = { Red = "foo", Blue = "bar" }
+local PartName = scope:Value("")
+local thing = scope:New("Part")({
+	[Out("Name")] = PartName,
+})
 
-local renamedKeys = scope:ForKeys(data, function(use, scope, currentVal) -- currentVal acts as key
-	return string.upper(currentVal)
-end)
+print(peek(PartName)) -- outputs Part.
 
-print(peek(renamedKeys))
+thing.Name = "Jimmy"
+task.wait()
+print(peek(PartName)) -- Jimmy.
 
--- Input table can also be a state object. When the input table changes, output will also update.
+print("-----------------------------------------------------------------------------------------")
 
-local FoodSet = scope:Value({})
+-- Two way bindings --> By default, Out
 
-local Prefixes = { pie = "Tasty", Pizza = "Delicious", Cabbage = "Not my favorite" }
+local name = scope:Value("")
 
-local RenamedFoodSet = scope:ForKeys(FoodSet, function(use, scope, current)
-	return Prefixes[current] .. current
-end)
+local frame = scope:New("Frame")({
+	Name = name,
+	[Out("Name")] = name,
+})
 
-FoodSet:set({ pie = true })
-print(peek(RenamedFoodSet))
-
-FoodSet:set({ Pizza = true, Cabbage = false })
-print(peek(RenamedFoodSet))
-
--- You can also perform use() on state objects within calculations.
-
--- Additionally, anything added to the scope is cleaned up when the processed key is removed.
-
-local newFoodSet = scope:Value({ broccoli = true, chocolate = true })
-
-local ShoutingFoodSet = scope:ForKeys(newFoodSet, function(use, scope, current)
-	table.insert(scope, function()
-		print("I ate the " .. current)
-	end)
-	return string.upper(current)
-end)
-
-print("--------------------------------------------------")
-print(peek(ShoutingFoodSet))
-newFoodSet:set({ chocolate = true })
-
-print(peek(ShoutingFoodSet))
+print(peek(name), frame.Name)
+name:set("Testing!")
+task.wait()
+print(peek(name), frame.Name)

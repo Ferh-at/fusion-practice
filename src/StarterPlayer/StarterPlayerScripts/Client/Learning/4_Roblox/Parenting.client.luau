@@ -24,22 +24,21 @@ local Children = Fusion.Children
 local scope = Fusion.scoped(Fusion)
 
 local UI = scope:New("ScreenGui")({
-    Parent  = game.Players.LocalPlayer.PlayerGui,
+	Parent = game.Players.LocalPlayer.PlayerGui,
 	[Children] = {
 		scope:New("Folder")({
-            [Children] = {
-                scope:New("TextLabel")({
-                    Name = "FirstChild",
-                    Text = "Hello! I am #1",
-                }),
-                scope:New("TextButton")({
-                    Name = "Sammy",
-                    Text = "Bruv",
-                }),
-            }
+			[Children] = {
+				scope:New("TextLabel")({
+					Name = "FirstChild",
+					Text = "Hello! I am #1",
+				}),
+				scope:New("TextButton")({
+					Name = "Sammy",
+					Text = "Bruv",
+				}),
+			},
 		}),
 	},
 })
 
 print(UI.Parent)
-

@@ -21,7 +21,6 @@ local scoped = Fusion.scoped
 local peek = Fusion.peek
 --* Process of connecting scripts to pre-made UI is known as Hydration.
 
-
 -- Functionality
 
 local myScope = scoped(Fusion)
@@ -30,10 +29,9 @@ local instance = game.Players.LocalPlayer.PlayerGui:WaitForChild("ScreenGui")
 local ShowUI = myScope:Value(true)
 
 -- hydration --> first pass in instance, then pass in ur property table
-local UI = myScope:Hydrate(instance){
-    Enabled = ShowUI
-}
-
+local UI = myScope:Hydrate(instance)({
+	Enabled = ShowUI,
+})
 
 print(UI.ClassName)
 print(UI.Parent)
