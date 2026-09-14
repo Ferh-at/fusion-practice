@@ -7,3 +7,4 @@ realm = "shared"
 [dependencies]
 Fusion = "elttob/fusion@0.3.0"
 Loader = "sleitnick/loader@2.0.0"
+Scribe = "ericplane/scribe@2.3.0"

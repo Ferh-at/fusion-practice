@@ -8,9 +8,14 @@ version = "0.3.0"
 dependencies = []
 
 [[package]]
+name = "ericplane/scribe"
+version = "2.3.0"
+dependencies = []
+
+[[package]]
 name = "ferhat/sigma-practice"
 version = "0.1.0"
-dependencies = [["Fusion", "elttob/fusion@0.3.0"], ["Loader", "sleitnick/loader@2.0.0"]]
+dependencies = [["Fusion", "elttob/fusion@0.3.0"], ["Loader", "sleitnick/loader@2.0.0"], ["Scribe", "ericplane/scribe@2.3.0"]]
 
 [[package]]
 name = "sleitnick/loader"
