@@ -1,4 +1,3 @@
---!nolint
 --[[
 ╔════════════════════════════════════════════════════════════╗
 ║                                                            ║
@@ -9,7 +8,7 @@
 ║   ██║     ███████╗██║  ██║██║  ██║██║  ██║   ██║           ║
 ║   ╚═╝     ╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝   ╚═╝           ║
 ║                                                            ║
-║   Last updated: 14/09/2026                                 ║
+║   Last updated: 18/09/2026                                 ║
 ╚════════════════════════════════════════════════════════════╝
 ]]
 
@@ -19,39 +18,46 @@ local Fusion = require(ReplicatedStorage.Packages.Fusion)
 
 local scoped = Fusion.scoped
 local Children = Fusion.Children
+local peek = Fusion.peek
+
+local OnEvent = Fusion.OnEvent
+
+type UsedAs<T> = Fusion.UsedAs<T>
+type FusionScope = Fusion.Scope<typeof(Fusion)>
+
+local Contextual = Fusion.Contextual
+local Safe = Fusion.Safe
+
+
 
 -- Functionality
 
---* At some point, you might need to refer to another part of the UI. There are various techniques that can let you do this.
+--[[
+When your computations return values that aren't meaningfully different, Fusion doesn't bother to perform further updates.
 
---! Firstly, but the worst is by utilising Constants.
+However, Fusion can't automatically do this for tables. So, you should freeze every table you create, unless you need to change what's inside the table later (for example, if it's a list that changes over time).
+]]--
 
 local scope = scoped(Fusion)
 
-local selectionTarget = scope:New("Part")({
-	Name = "Selection Target Part",
-})
+local number = scope:Value(1)
+local isEven = scope:Computed(function(use)
+    return use(number) % 2 == 0
+end)
+scope:Observer(isEven):onChange(function()
+    print("-> isEven has changed to " .. peek(isEven))
+end)
 
-local UI = scope:New("Folder")({
-	[Children] = scope:New("SelectionBox")({
-		Adornee = selectionTarget,
-	}),
-})
+print("Number becomes 2")
+number:set(2)
+print("Number becomes 3")
+number:set(3)
+print("Number becomes 13")
+number:set(13)
+print("Number becomes 14")
+number:set(14)
+print("Number becomes 24")
+number:set(24)
 
---! Disadvantages: i) ui constructed in a different order. ii) inelegant and bothersome. iii) you can't have two pieces of UI refer to each other cyclically
 
---! Much better, use Value objects.
-
--- type is already clear.  selectionTarget will show as nil, until :set() method is used later on.
-local selectionTarget: Fusion.Value<Part?> = scope:Value(nil)
-
-local UI = scope:New("Folder")({
-	[Children] = scope:New("SelectionBox")({
-		Adornee = selectionTarget,
-	}),
-	selectionTarget:set(scope:New("Part")({
-		Name = "Selection Target",
-	})),
-})
-
--- this allows for cyclic references. Value method is prefered.
+--! Observer only runs when there is a notable change in return.
